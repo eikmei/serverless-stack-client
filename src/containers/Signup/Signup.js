@@ -7,6 +7,8 @@ import { useFormFields } from "../../libs/hooksLib";
 import { onError } from "../../libs/errorLib";
 import "./Signup.css";
 import { Auth } from "aws-amplify";
+import { Button, InputGroup } from "react-bootstrap";
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
 export default function Signup() {
 	const [fields, handleFieldChange] = useFormFields({
@@ -19,6 +21,7 @@ export default function Signup() {
 	const [newUser, setNewUser] = useState(null);
 	const { userHasAuthenticated } = useAppContext();
 	const [isLoading, setIsLoading] = useState(false);
+	const [passwordShown, setPasswordShown] = useState(false);
 
 	function validateForm() {
 		return (
@@ -30,6 +33,10 @@ export default function Signup() {
 
 	function validateConfirmationForm() {
 		return fields.confirmationCode.length > 0;
+	}
+
+	const togglePasswordVisibility = () => {
+		setPasswordShown(passwordShown ? false : true);
 	}
 
 	async function handleSubmit(event) {
@@ -117,19 +124,41 @@ export default function Signup() {
 				</Form.Group>
 				<Form.Group controlId="password" size="lg">
 					<Form.Label>Password</Form.Label>
-					<Form.Control
-						type="password"
-						value={fields.password}
-						onChange={handleFieldChange}
-					/>
+					<InputGroup className="mb-3">
+						<Form.Control
+							type={passwordShown ? "text" : "password"}
+							value={fields.password}
+							onChange={handleFieldChange}
+						/>
+						<InputGroup.Append>
+      						<Button>
+								{!passwordShown ? (
+									<BsFillEyeSlashFill onClick={togglePasswordVisibility}/>
+								) : (
+									<BsFillEyeFill onClick={togglePasswordVisibility} />
+								)}
+							</Button>
+    					</InputGroup.Append>
+					</InputGroup>
 				</Form.Group>
 				<Form.Group controlId="confirmPassword" size="lg">
 					<Form.Label>Confirm Password</Form.Label>
-					<Form.Control
-						type="password"
-						onChange={handleFieldChange}
-						value={fields.confirmPassword}
-					/>
+					<InputGroup className="mb-3">
+						<Form.Control
+							type={passwordShown ? "text" : "password"}
+							onChange={handleFieldChange}
+							value={fields.confirmPassword}
+						/>
+						<InputGroup.Append>
+      						<Button>
+								{!passwordShown ? (
+									<BsFillEyeSlashFill onClick={togglePasswordVisibility}/>
+								) : (
+									<BsFillEyeFill onClick={togglePasswordVisibility} />
+								)}
+							</Button>
+    					</InputGroup.Append>
+					</InputGroup>
 				</Form.Group>
 				<LoaderButton
 					block
