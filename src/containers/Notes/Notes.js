@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import LoaderButton from "../../components/LoaderButton/LoaderButton";
 import config from "../../config";
 import "./Notes.css";
-import { s3Upload, deleteS3Upload } from "../../libs/awsLib";
+import { s3Upload } from "../../libs/awsLib";
 
 export default function Notes() {
 	const file = useRef(null);
@@ -114,7 +114,6 @@ export default function Notes() {
 
 		try {
 			await deleteNote();
-			// await deleteS3Upload()
 			history.push("/");
 		} catch (e) {
 			onError(e);
