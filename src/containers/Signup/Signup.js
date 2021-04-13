@@ -22,6 +22,7 @@ export default function Signup() {
 	const { userHasAuthenticated } = useAppContext();
 	const [isLoading, setIsLoading] = useState(false);
 	const [passwordShown, setPasswordShown] = useState(false);
+	const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
 
 	function validateForm() {
 		return (
@@ -37,6 +38,10 @@ export default function Signup() {
 
 	const togglePasswordVisibility = () => {
 		setPasswordShown(passwordShown ? false : true);
+	}
+
+	const toggleConfirmPasswordVisibility = () => {
+		setConfirmPasswordShown(confirmPasswordShown ? false : true);
 	}
 
 	async function handleSubmit(event) {
@@ -145,16 +150,16 @@ export default function Signup() {
 					<Form.Label>Confirm Password</Form.Label>
 					<InputGroup className="mb-3">
 						<Form.Control
-							type={passwordShown ? "text" : "password"}
+							type={confirmPasswordShown ? "text" : "password"}
 							onChange={handleFieldChange}
 							value={fields.confirmPassword}
 						/>
 						<InputGroup.Append>
       						<Button>
-								{!passwordShown ? (
-									<BsFillEyeSlashFill onClick={togglePasswordVisibility}/>
+								{!confirmPasswordShown ? (
+									<BsFillEyeSlashFill onClick={toggleConfirmPasswordVisibility}/>
 								) : (
-									<BsFillEyeFill onClick={togglePasswordVisibility} />
+									<BsFillEyeFill onClick={toggleConfirmPasswordVisibility} />
 								)}
 							</Button>
     					</InputGroup.Append>

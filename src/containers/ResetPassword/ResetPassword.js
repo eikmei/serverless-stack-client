@@ -21,6 +21,7 @@ export default function ResetPassword() {
 	const [isConfirming, setIsConfirming] = useState(false);
 	const [isSendingCode, setIsSendingCode] = useState(false);
 	const [passwordShown, setPasswordShown] = useState(false);
+	const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
 
 	function validateCodeForm() {
 		return fields.email.length > 0;
@@ -68,6 +69,10 @@ export default function ResetPassword() {
 
 	const togglePasswordVisibility = () => {
 		setPasswordShown(passwordShown ? false : true);
+	}
+
+	const toggleConfirmPasswordVisibility = () => {
+		setConfirmPasswordShown(confirmPasswordShown ? false : true);
 	}
 
 	function renderRequestCodeForm() {
@@ -135,16 +140,16 @@ export default function ResetPassword() {
 					<Form.Label>Confirm Password</Form.Label>
 					<InputGroup className="mb-3">
 						<Form.Control
-							type={passwordShown ? "text" : "password"}
+							type={confirmPasswordShown ? "text" : "password"}
 							value={fields.confirmPassword}
 							onChange={handleFieldChange}
 						/>
 						<InputGroup.Append>
       						<Button>
-								{!passwordShown ? (
-									<BsFillEyeSlashFill onClick={togglePasswordVisibility}/>
+								{!confirmPasswordShown ? (
+									<BsFillEyeSlashFill onClick={toggleConfirmPasswordVisibility}/>
 								) : (
-									<BsFillEyeFill onClick={togglePasswordVisibility} />
+									<BsFillEyeFill onClick={toggleConfirmPasswordVisibility} />
 								)}
 							</Button>
     					</InputGroup.Append>
